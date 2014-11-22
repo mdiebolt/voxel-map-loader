@@ -174,7 +174,7 @@
     },
     "pixie.cson": {
       "path": "pixie.cson",
-      "content": "version: \"0.1.0\"\nremoteDependencies: [\n  \"https://code.jquery.com/jquery-1.10.1.min.js\"\n  \"https://cdnjs.cloudflare.com/ajax/libs/three.js/r69/three.js\"\n]\ndependencies:\n  util: \"distri/util:v0.1.0\"\n  \"tactics-core\": \"distri/tactics-core:v0.2.3-pre.10\"\n",
+      "content": "version: \"0.1.0\"\nremoteDependencies: [\n  \"https://code.jquery.com/jquery-1.10.1.min.js\"\n  \"https://cdnjs.cloudflare.com/ajax/libs/three.js/r69/three.js\"\n  \"http://threejs.org/examples/js/controls/OrbitControls.js\"\n]\ndependencies:\n  util: \"distri/util:v0.1.0\"\n  \"tactics-core\": \"distri/tactics-core:v0.2.3-pre.10\"\n",
       "mode": "100644",
       "type": "blob"
     }
@@ -187,7 +187,7 @@
     },
     "pixie": {
       "path": "pixie",
-      "content": "module.exports = {\"version\":\"0.1.0\",\"remoteDependencies\":[\"https://code.jquery.com/jquery-1.10.1.min.js\",\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r69/three.js\"],\"dependencies\":{\"util\":\"distri/util:v0.1.0\",\"tactics-core\":\"distri/tactics-core:v0.2.3-pre.10\"}};",
+      "content": "module.exports = {\"version\":\"0.1.0\",\"remoteDependencies\":[\"https://code.jquery.com/jquery-1.10.1.min.js\",\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r69/three.js\",\"http://threejs.org/examples/js/controls/OrbitControls.js\"],\"dependencies\":{\"util\":\"distri/util:v0.1.0\",\"tactics-core\":\"distri/tactics-core:v0.2.3-pre.10\"}};",
       "type": "blob"
     }
   },
@@ -198,7 +198,8 @@
   "entryPoint": "main",
   "remoteDependencies": [
     "https://code.jquery.com/jquery-1.10.1.min.js",
-    "https://cdnjs.cloudflare.com/ajax/libs/three.js/r69/three.js"
+    "https://cdnjs.cloudflare.com/ajax/libs/three.js/r69/three.js",
+    "http://threejs.org/examples/js/controls/OrbitControls.js"
   ],
   "repository": {
     "branch": "master",
