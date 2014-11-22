@@ -20,8 +20,12 @@ setInterval ->
         
           scene.add cube 
     
+    ambientLight = new THREE.AmbientLight 0x101030
+
+    scene.add ambientLight
+
     directionalLight = new THREE.DirectionalLight 0xffeedd
-    directionalLight.position.set 0, 0, 10
+    directionalLight.position.set 5, 10, 5
     directionalLight.castShadow = true
       
     scene.add directionalLight
