@@ -25,6 +25,8 @@ clear = (scene) ->
 scene = engine.scene()
 clear scene 
 
+console.log mapData
+
 mapData.forEach (row) ->
   row.forEach (col) ->
     cube = engine.Cube
