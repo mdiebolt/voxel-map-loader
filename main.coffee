@@ -48,11 +48,9 @@ loadFromSpreadsheet = ->
       row.forEach ({x, y, z}) ->
         [y..0].forEach (y) ->
           cube = engine.Cube(x, y, z)
-                    
-          floorCubes = y < 1
-                    
+                                        
           cube.receiveShadow = true
-          cube.castShadow = !floorCubes
+          cube.castShadow = y >= 1
           
           scene.add cube 
     
