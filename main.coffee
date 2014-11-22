@@ -19,6 +19,12 @@ setInterval ->
           cube = engine.Cube(x, y, z)
         
           scene.add cube 
+    
+    directionalLight = new THREE.DirectionalLight 0xffeedd
+    directionalLight.position.set 0, 0, 10
+    directionalLight.castShadow = true
+      
+    scene.add directionalLight
 , 5000
 
 engine = TacticsCore.init
