@@ -13,7 +13,7 @@ window["mdiebolt/voxel-map-loader:master"]({
     },
     "main.coffee": {
       "path": "main.coffee",
-      "content": "TacticsCore = require \"tactics-core\"\n\nTacticsCore.Loader.get().then (data) ->\n  console.log data\n  \n  mapData = data.map.map (cube) ->\n    [\"a\", \"b\", \"c\", \"d\", \"e\", \"f\", \"g\", \"h\", \"i\", \"j\"].map (letter) ->\n      parseInt cube[letter]\n      \n  console.log mapData ",
+      "content": "TacticsCore = require \"tactics-core\"\n\nTacticsCore.Loader.get().then (data) ->\n  console.log data\n  \n  mapData = data.map.map (cube) ->\n    [\"a\", \"b\", \"c\", \"d\", \"e\", \"f\", \"g\", \"h\", \"i\", \"j\"].map (letter) ->\n      parseInt cube[letter]\n      \n  scene.clear()\n  \n  mapData.forEach (row) ->\n    row.forEach (col) ->\n      ; ",
       "mode": "100644"
     }
   },
@@ -25,7 +25,7 @@ window["mdiebolt/voxel-map-loader:master"]({
     },
     "main": {
       "path": "main",
-      "content": "(function() {\n  var TacticsCore;\n\n  TacticsCore = require(\"tactics-core\");\n\n  TacticsCore.Loader.get().then(function(data) {\n    var mapData;\n    console.log(data);\n    mapData = data.map.map(function(cube) {\n      return [\"a\", \"b\", \"c\", \"d\", \"e\", \"f\", \"g\", \"h\", \"i\", \"j\"].map(function(letter) {\n        return parseInt(cube[letter]);\n      });\n    });\n    return console.log(mapData);\n  });\n\n}).call(this);\n",
+      "content": "(function() {\n  var TacticsCore;\n\n  TacticsCore = require(\"tactics-core\");\n\n  TacticsCore.Loader.get().then(function(data) {\n    var mapData;\n    console.log(data);\n    mapData = data.map.map(function(cube) {\n      return [\"a\", \"b\", \"c\", \"d\", \"e\", \"f\", \"g\", \"h\", \"i\", \"j\"].map(function(letter) {\n        return parseInt(cube[letter]);\n      });\n    });\n    scene.clear();\n    return mapData.forEach(function(row) {\n      return row.forEach(function(col) {});\n    });\n  });\n\n}).call(this);\n",
       "type": "blob"
     }
   },
