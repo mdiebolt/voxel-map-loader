@@ -1,14 +1,21 @@
 TacticsCore = require "tactics-core"
 
-addLights = (scene) ->
+clear = (scene) ->
+  removableChildren = scene.children.copy().reverse()
+
+  removableChildren.forEach (child) ->
+    scene.remove(child) unless child.tag is "axis"
+
+addLights = (scene, opts={}) ->
   ambientLight = new THREE.AmbientLight 0x212223
   scene.add ambientLight
 
   light = new THREE.DirectionalLight 0xffffff, 1
   
   light.castShadow = true
-  light.shadowCameraVisible = true
   
+  # This is all very important for gettings shadows working properly
+  # Tweak these or calculate them based on objects in your scene
   light.shadowCameraNear = 1
   light.shadowCameraFar = 20
   light.shadowCameraLeft = -7
@@ -19,7 +26,10 @@ addLights = (scene) ->
   light.position.set 10, 5, 10
     
   scene.add light
-  scene.add new THREE.DirectionalLightHelper(light, 0.2)
+  
+  if opts.debug
+    light.shadowCameraVisible = true
+    scene.add new THREE.DirectionalLightHelper(light, 0.2)  
 
 setInterval ->
   TacticsCore.Loader.refresh().then (data) ->
@@ -62,9 +72,3 @@ renderer.shadowMapSoft = false
 
 controls = new THREE.OrbitControls camera, renderer.domElement
 controls.target = new THREE.Vector3(5, 0, 5)
-
-clear = (scene) ->
-  removableChildren = scene.children.copy().reverse()
-
-  removableChildren.forEach (child) ->
-    scene.remove(child) unless child.tag is "axis"
