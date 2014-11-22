@@ -1,32 +1,33 @@
 TacticsCore = require "tactics-core"
 
-TacticsCore.Loader.get().then (data) ->
-  console.log data
+setInterval ->
+  TacticsCore.Loader.refresh().then (data) ->
+    scene = engine.scene()
+    clear scene
   
-  mapData = data.map.map (cube, x) ->
-    ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"].map (letter, z) ->
-      {
-        x: x
-        y: parseInt cube[letter]
-        z: z     
-      }
+    mapData = data.map.map (cube, z) ->
+      ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"].map (letter, x) ->
+        {
+          x: x
+          y: parseInt cube[letter]
+          z: z
+        }
+  
+    mapData.forEach (row) ->
+      row.forEach ({x, y, z}) ->
+        [y..0].forEach (y) ->
+          cube = engine.Cube(x, y, z)
         
+          scene.add cube 
+, 5000
+
 engine = TacticsCore.init
   data: {}
   update: ->
     ;
-      
+
 clear = (scene) ->
   removableChildren = scene.children.copy().reverse()
-  
+
   removableChildren.forEach (child) ->
-    scene.remove(child) unless child.tag in ["camera", "axis"]
-
-scene = engine.scene()
-clear scene 
-
-console.log mapData
-
-mapData.forEach (row) ->
-  row.forEach (col) ->
-    cube = engine.Cube
+    scene.remove(child) unless child.tag is "axis"
