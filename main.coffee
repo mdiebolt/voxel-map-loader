@@ -5,9 +5,17 @@ addLights = (scene) ->
   scene.add ambientLight
 
   light = new THREE.DirectionalLight 0xffffff, 1
+  
   light.castShadow = true
   light.shadowCameraVisible = true
-  light.shadowCameraNear = 10
+  
+  light.shadowCameraNear = 1
+  light.shadowCameraFar = 20
+  light.shadowCameraLeft = -7
+  light.shadowCameraRight = 7
+  light.shadowCameraTop = 7
+  light.shadowCameraBottom = -7
+
   light.position.set 10, 5, 10
     
   scene.add light
