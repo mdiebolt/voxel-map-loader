@@ -7,4 +7,8 @@ TacticsCore.Loader.get().then (data) ->
     ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"].map (letter) ->
       parseInt cube[letter]
       
-  console.log mapData 
+  scene.clear()
+  
+  mapData.forEach (row) ->
+    row.forEach (col) ->
+      ; 
