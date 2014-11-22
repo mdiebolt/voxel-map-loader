@@ -39,7 +39,7 @@ setInterval ->
         [y..0].forEach (y) ->
           cube = engine.Cube(x, y, z)
           
-          floorCubes = y <= 1 
+          floorCubes = y < 1 
           
           cube.receiveShadow = floorCubes
           cube.castShadow = !floorCubes
