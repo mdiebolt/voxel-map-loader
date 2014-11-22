@@ -22,15 +22,19 @@ setInterval ->
           
           scene.add cube 
     
-    ambientLight = new THREE.AmbientLight 0x101030
+    renderer = engine.renderer()
+    renderer.shadowMapEnabled = true
 
+    ambientLight = new THREE.AmbientLight 0x101030
     scene.add ambientLight
 
-    directionalLight = new THREE.DirectionalLight 0xffeedd
-    directionalLight.position.set 5, 10, 5
-    directionalLight.castShadow = true
+    light = new THREE.PointLight 0xffeedd
+    light.shadowDarkness = 0.5
+    light.shadowCameraVisible = true
+    light.position.set 5, 5, 5
+    light.castShadow = true
       
-    scene.add directionalLight
+    scene.add light
 , 5000
 
 engine = TacticsCore.init
