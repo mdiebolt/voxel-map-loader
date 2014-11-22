@@ -29,10 +29,7 @@ setInterval ->
     scene.add ambientLight
 
     light = new THREE.PointLight 0xffeedd
-    light.shadowDarkness = 0.5
-    light.shadowCameraVisible = true
     light.position.set 5, 5, 5
-    light.castShadow = true
       
     scene.add light
 , 5000
@@ -41,6 +38,9 @@ engine = TacticsCore.init
   data: {}
   update: ->
     ;
+    
+camera = engine.camera()
+camera.position.set(5, 10, 20)
 
 clear = (scene) ->
   removableChildren = scene.children.copy().reverse()
