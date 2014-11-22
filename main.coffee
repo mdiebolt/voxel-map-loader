@@ -1,5 +1,18 @@
 TacticsCore = require "tactics-core"
 
+addLights = (scene) ->
+  ambientLight = new THREE.AmbientLight 0x212223
+  scene.add ambientLight
+
+  light = new THREE.DirectionalLight 0xffffff, 1
+  light.castShadow = true
+  light.shadowCameraVisible = true
+  light.shadowCameraNear = 10
+  light.position.set 10, 5, 10
+    
+  scene.add light
+  scene.add new THREE.DirectionalLightHelper(light, 0.2)
+
 setInterval ->
   TacticsCore.Loader.refresh().then (data) ->
     scene = engine.scene()
@@ -17,27 +30,15 @@ setInterval ->
       row.forEach ({x, y, z}) ->
         [y..0].forEach (y) ->
           cube = engine.Cube(x, y, z)
-          cube.castShadow = true
-          cube.receiveShadow = true
+          
+          floorCubes = y <= 1 
+          
+          cube.receiveShadow = floorCubes
+          cube.castShadow = !floorCubes
           
           scene.add cube 
     
-    ambientLight = new THREE.AmbientLight 0x101030
-    scene.add ambientLight
-
-    light = new THREE.DirectionalLight 0xffffff, 1
-    light.castShadow = true
-    light.shadowCameraVisible = true
-    #light.shadowCameraNear = 100
-	  #light.shadowCameraFar = 200
-    #light.shadowCameraLeft = -20
-	  #light.shadowCameraRight = 20
-	  #light.shadowCameraTop = 20
-	  #light.shadowCameraBottom = -20
-    light.position.set 5, 5, 5
-      
-    scene.add light
-    scene.add new THREE.DirectionalLightHelper(light, 0.2)
+    addLights scene
 , 5000
 
 engine = TacticsCore.init
@@ -49,6 +50,7 @@ camera.position.set(5, 10, 20)
 
 renderer = engine.renderer()
 renderer.shadowMapEnabled = true
+renderer.shadowMapSoft = false
 
 controls = new THREE.OrbitControls camera, renderer.domElement
 controls.target = new THREE.Vector3(5, 0, 5)
