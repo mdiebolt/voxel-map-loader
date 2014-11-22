@@ -2,13 +2,13 @@ window["mdiebolt/voxel-map-loader:master"]({
   "source": {
     "main.coffee": {
       "path": "main.coffee",
-      "content": "TacticsCore = require \"tactics-core\"\n\nsetInterval ->\n  TacticsCore.Loader.refresh().then (data) ->\n    scene = engine.scene()\n    clear scene\n  \n    mapData = data.map.map (cube, z) ->\n      [\"a\", \"b\", \"c\", \"d\", \"e\", \"f\", \"g\", \"h\", \"i\", \"j\"].map (letter, x) ->\n        {\n          x: x\n          y: parseInt cube[letter]\n          z: z\n        }\n  \n    mapData.forEach (row) ->\n      row.forEach ({x, y, z}) ->\n        [y..0].forEach (y) ->\n          cube = engine.Cube(x, y, z)\n        \n          scene.add cube \n    \n    directionalLight = new THREE.DirectionalLight 0xffeedd\n    directionalLight.position.set 0, 0, 10\n    directionalLight.castShadow = true\n      \n    scene.add directionalLight\n, 5000\n\nengine = TacticsCore.init\n  data: {}\n  update: ->\n    ;\n\nclear = (scene) ->\n  removableChildren = scene.children.copy().reverse()\n\n  removableChildren.forEach (child) ->\n    scene.remove(child) unless child.tag is \"axis\"\n",
+      "content": "TacticsCore = require \"tactics-core\"\n\nsetInterval ->\n  TacticsCore.Loader.refresh().then (data) ->\n    scene = engine.scene()\n    clear scene\n  \n    mapData = data.map.map (cube, z) ->\n      [\"a\", \"b\", \"c\", \"d\", \"e\", \"f\", \"g\", \"h\", \"i\", \"j\"].map (letter, x) ->\n        {\n          x: x\n          y: parseInt cube[letter]\n          z: z\n        }\n  \n    mapData.forEach (row) ->\n      row.forEach ({x, y, z}) ->\n        [y..0].forEach (y) ->\n          cube = engine.Cube(x, y, z)\n        \n          scene.add cube \n    \n    ambientLight = new THREE.AmbientLight 0x101030\n\n    scene.add ambientLight\n\n    directionalLight = new THREE.DirectionalLight 0xffeedd\n    directionalLight.position.set 5, 10, 5\n    directionalLight.castShadow = true\n      \n    scene.add directionalLight\n, 5000\n\nengine = TacticsCore.init\n  data: {}\n  update: ->\n    ;\n\nclear = (scene) ->\n  removableChildren = scene.children.copy().reverse()\n\n  removableChildren.forEach (child) ->\n    scene.remove(child) unless child.tag is \"axis\"\n",
       "mode": "100644",
       "type": "blob"
     },
     "pixie.cson": {
       "path": "pixie.cson",
-      "content": "version: \"0.1.0\"\nremoteDependencies: [\n  \"https://code.jquery.com/jquery-1.10.1.min.js\"\n  \"https://cdnjs.cloudflare.com/ajax/libs/three.js/r69/three.js\"\n]\ndependencies:\n  util: \"distri/util:v0.1.0\"\n  \"tactics-core\": \"distri/tactics-core:v0.2.3-pre.8\"\n",
+      "content": "version: \"0.1.0\"\nremoteDependencies: [\n  \"https://code.jquery.com/jquery-1.10.1.min.js\"\n  \"https://cdnjs.cloudflare.com/ajax/libs/three.js/r69/three.js\"\n]\ndependencies:\n  util: \"distri/util:v0.1.0\"\n  \"tactics-core\": \"distri/tactics-core:v0.2.3-pre.9\"\n",
       "mode": "100644",
       "type": "blob"
     }
@@ -16,12 +16,12 @@ window["mdiebolt/voxel-map-loader:master"]({
   "distribution": {
     "main": {
       "path": "main",
-      "content": "(function() {\n  var TacticsCore, clear, engine;\n\n  TacticsCore = require(\"tactics-core\");\n\n  setInterval(function() {\n    return TacticsCore.Loader.refresh().then(function(data) {\n      var directionalLight, mapData, scene;\n      scene = engine.scene();\n      clear(scene);\n      mapData = data.map.map(function(cube, z) {\n        return [\"a\", \"b\", \"c\", \"d\", \"e\", \"f\", \"g\", \"h\", \"i\", \"j\"].map(function(letter, x) {\n          return {\n            x: x,\n            y: parseInt(cube[letter]),\n            z: z\n          };\n        });\n      });\n      mapData.forEach(function(row) {\n        return row.forEach(function(_arg) {\n          var x, y, z, _i, _results;\n          x = _arg.x, y = _arg.y, z = _arg.z;\n          return (function() {\n            _results = [];\n            for (var _i = y; y <= 0 ? _i <= 0 : _i >= 0; y <= 0 ? _i++ : _i--){ _results.push(_i); }\n            return _results;\n          }).apply(this).forEach(function(y) {\n            var cube;\n            cube = engine.Cube(x, y, z);\n            return scene.add(cube);\n          });\n        });\n      });\n      directionalLight = new THREE.DirectionalLight(0xffeedd);\n      directionalLight.position.set(0, 0, 10);\n      directionalLight.castShadow = true;\n      return scene.add(directionalLight);\n    });\n  }, 5000);\n\n  engine = TacticsCore.init({\n    data: {},\n    update: function() {}\n  });\n\n  clear = function(scene) {\n    var removableChildren;\n    removableChildren = scene.children.copy().reverse();\n    return removableChildren.forEach(function(child) {\n      if (child.tag !== \"axis\") {\n        return scene.remove(child);\n      }\n    });\n  };\n\n}).call(this);\n",
+      "content": "(function() {\n  var TacticsCore, clear, engine;\n\n  TacticsCore = require(\"tactics-core\");\n\n  setInterval(function() {\n    return TacticsCore.Loader.refresh().then(function(data) {\n      var ambientLight, directionalLight, mapData, scene;\n      scene = engine.scene();\n      clear(scene);\n      mapData = data.map.map(function(cube, z) {\n        return [\"a\", \"b\", \"c\", \"d\", \"e\", \"f\", \"g\", \"h\", \"i\", \"j\"].map(function(letter, x) {\n          return {\n            x: x,\n            y: parseInt(cube[letter]),\n            z: z\n          };\n        });\n      });\n      mapData.forEach(function(row) {\n        return row.forEach(function(_arg) {\n          var x, y, z, _i, _results;\n          x = _arg.x, y = _arg.y, z = _arg.z;\n          return (function() {\n            _results = [];\n            for (var _i = y; y <= 0 ? _i <= 0 : _i >= 0; y <= 0 ? _i++ : _i--){ _results.push(_i); }\n            return _results;\n          }).apply(this).forEach(function(y) {\n            var cube;\n            cube = engine.Cube(x, y, z);\n            return scene.add(cube);\n          });\n        });\n      });\n      ambientLight = new THREE.AmbientLight(0x101030);\n      scene.add(ambientLight);\n      directionalLight = new THREE.DirectionalLight(0xffeedd);\n      directionalLight.position.set(5, 10, 5);\n      directionalLight.castShadow = true;\n      return scene.add(directionalLight);\n    });\n  }, 5000);\n\n  engine = TacticsCore.init({\n    data: {},\n    update: function() {}\n  });\n\n  clear = function(scene) {\n    var removableChildren;\n    removableChildren = scene.children.copy().reverse();\n    return removableChildren.forEach(function(child) {\n      if (child.tag !== \"axis\") {\n        return scene.remove(child);\n      }\n    });\n  };\n\n}).call(this);\n",
       "type": "blob"
     },
     "pixie": {
       "path": "pixie",
-      "content": "module.exports = {\"version\":\"0.1.0\",\"remoteDependencies\":[\"https://code.jquery.com/jquery-1.10.1.min.js\",\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r69/three.js\"],\"dependencies\":{\"util\":\"distri/util:v0.1.0\",\"tactics-core\":\"distri/tactics-core:v0.2.3-pre.8\"}};",
+      "content": "module.exports = {\"version\":\"0.1.0\",\"remoteDependencies\":[\"https://code.jquery.com/jquery-1.10.1.min.js\",\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r69/three.js\"],\"dependencies\":{\"util\":\"distri/util:v0.1.0\",\"tactics-core\":\"distri/tactics-core:v0.2.3-pre.9\"}};",
       "type": "blob"
     }
   },
@@ -234,7 +234,7 @@ window["mdiebolt/voxel-map-loader:master"]({
         },
         "lib/cube.coffee.md": {
           "path": "lib/cube.coffee.md",
-          "content": "Cube\n====\n\n    CUBE_SIZE = 1\n\n    geometry = new THREE.BoxGeometry(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE)\n\n    module.exports = (x, y, z) ->\n      material = new THREE.MeshBasicMaterial\n\n      grayness = (y * 0.1) + 0.5 + rand() * 0.05\n      material.color.setRGB grayness, grayness, grayness\n\n      cube = new THREE.Mesh geometry, material\n      cube.position.set(x * CUBE_SIZE, (y - 0.5) * CUBE_SIZE, z * CUBE_SIZE)\n\n      return cube\n",
+          "content": "Cube\n====\n\n    CUBE_SIZE = 1\n\n    geometry = new THREE.BoxGeometry(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE)\n\n    module.exports = (x, y, z) ->\n      material = new THREE.MeshLambertMaterial\n\n      grayness = (y * 0.1) + 0.5 + rand() * 0.05\n      material.color.setRGB grayness, grayness, grayness\n\n      cube = new THREE.Mesh geometry, material\n      cube.position.set(x * CUBE_SIZE, (y - 0.5) * CUBE_SIZE, z * CUBE_SIZE)\n\n      return cube\n",
           "mode": "100644",
           "type": "blob"
         },
@@ -252,7 +252,7 @@ window["mdiebolt/voxel-map-loader:master"]({
         },
         "lib/lights.coffee.md": {
           "path": "lib/lights.coffee.md",
-          "content": "Lights\n======\n\n    exports.ambient = ->\n      new THREE.AmbientLight 0x101030\n\n    exports.directional = ->\n      directionalLight = new THREE.DirectionalLight 0xffeedd\n      directionalLight.position.set 0, 0, 10\n\n      directionalLight\n",
+          "content": "Lights\n======\n\n    exports.ambient = ->\n      new THREE.AmbientLight 0x101030\n\n    exports.directional = ->\n      directionalLight = new THREE.DirectionalLight 0xffeedd\n      directionalLight.position.set 5, 10, 0\n\n      directionalLight\n",
           "mode": "100644",
           "type": "blob"
         },
@@ -300,7 +300,7 @@ window["mdiebolt/voxel-map-loader:master"]({
         },
         "pixie.cson": {
           "path": "pixie.cson",
-          "content": "version: \"0.2.3-pre.8\"\nentryPoint: \"main\"\nremoteDependencies: [\n  \"https://code.jquery.com/jquery-1.10.1.min.js\"\n  \"https://cdnjs.cloudflare.com/ajax/libs/three.js/r69/three.js\"\n]\ndependencies:\n  cornerstone: \"distri/cornerstone:v0.2.6\"\n  spreadsheet: \"distri/gdocs-spreadsheet:v0.1.0\"\n  stats: \"distri/stats.js:v0.11.0\"\n  util: \"distri/util:v0.1.1\"\n",
+          "content": "version: \"0.2.3-pre.9\"\nentryPoint: \"main\"\nremoteDependencies: [\n  \"https://code.jquery.com/jquery-1.10.1.min.js\"\n  \"https://cdnjs.cloudflare.com/ajax/libs/three.js/r69/three.js\"\n]\ndependencies:\n  cornerstone: \"distri/cornerstone:v0.2.6\"\n  spreadsheet: \"distri/gdocs-spreadsheet:v0.1.0\"\n  stats: \"distri/stats.js:v0.11.0\"\n  util: \"distri/util:v0.1.1\"\n",
           "mode": "100644",
           "type": "blob"
         },
@@ -360,7 +360,7 @@ window["mdiebolt/voxel-map-loader:master"]({
         },
         "lib/cube": {
           "path": "lib/cube",
-          "content": "(function() {\n  var CUBE_SIZE, geometry;\n\n  CUBE_SIZE = 1;\n\n  geometry = new THREE.BoxGeometry(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE);\n\n  module.exports = function(x, y, z) {\n    var cube, grayness, material;\n    material = new THREE.MeshBasicMaterial;\n    grayness = (y * 0.1) + 0.5 + rand() * 0.05;\n    material.color.setRGB(grayness, grayness, grayness);\n    cube = new THREE.Mesh(geometry, material);\n    cube.position.set(x * CUBE_SIZE, (y - 0.5) * CUBE_SIZE, z * CUBE_SIZE);\n    return cube;\n  };\n\n}).call(this);\n",
+          "content": "(function() {\n  var CUBE_SIZE, geometry;\n\n  CUBE_SIZE = 1;\n\n  geometry = new THREE.BoxGeometry(CUBE_SIZE, CUBE_SIZE, CUBE_SIZE);\n\n  module.exports = function(x, y, z) {\n    var cube, grayness, material;\n    material = new THREE.MeshLambertMaterial;\n    grayness = (y * 0.1) + 0.5 + rand() * 0.05;\n    material.color.setRGB(grayness, grayness, grayness);\n    cube = new THREE.Mesh(geometry, material);\n    cube.position.set(x * CUBE_SIZE, (y - 0.5) * CUBE_SIZE, z * CUBE_SIZE);\n    return cube;\n  };\n\n}).call(this);\n",
           "type": "blob"
         },
         "lib/engine": {
@@ -375,7 +375,7 @@ window["mdiebolt/voxel-map-loader:master"]({
         },
         "lib/lights": {
           "path": "lib/lights",
-          "content": "(function() {\n  exports.ambient = function() {\n    return new THREE.AmbientLight(0x101030);\n  };\n\n  exports.directional = function() {\n    var directionalLight;\n    directionalLight = new THREE.DirectionalLight(0xffeedd);\n    directionalLight.position.set(0, 0, 10);\n    return directionalLight;\n  };\n\n}).call(this);\n",
+          "content": "(function() {\n  exports.ambient = function() {\n    return new THREE.AmbientLight(0x101030);\n  };\n\n  exports.directional = function() {\n    var directionalLight;\n    directionalLight = new THREE.DirectionalLight(0xffeedd);\n    directionalLight.position.set(5, 10, 0);\n    return directionalLight;\n  };\n\n}).call(this);\n",
           "type": "blob"
         },
         "lib/oculus_rift/camera_control": {
@@ -415,7 +415,7 @@ window["mdiebolt/voxel-map-loader:master"]({
         },
         "pixie": {
           "path": "pixie",
-          "content": "module.exports = {\"version\":\"0.2.3-pre.8\",\"entryPoint\":\"main\",\"remoteDependencies\":[\"https://code.jquery.com/jquery-1.10.1.min.js\",\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r69/three.js\"],\"dependencies\":{\"cornerstone\":\"distri/cornerstone:v0.2.6\",\"spreadsheet\":\"distri/gdocs-spreadsheet:v0.1.0\",\"stats\":\"distri/stats.js:v0.11.0\",\"util\":\"distri/util:v0.1.1\"}};",
+          "content": "module.exports = {\"version\":\"0.2.3-pre.9\",\"entryPoint\":\"main\",\"remoteDependencies\":[\"https://code.jquery.com/jquery-1.10.1.min.js\",\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r69/three.js\"],\"dependencies\":{\"cornerstone\":\"distri/cornerstone:v0.2.6\",\"spreadsheet\":\"distri/gdocs-spreadsheet:v0.1.0\",\"stats\":\"distri/stats.js:v0.11.0\",\"util\":\"distri/util:v0.1.1\"}};",
           "type": "blob"
         },
         "style": {
@@ -457,14 +457,14 @@ window["mdiebolt/voxel-map-loader:master"]({
       "progenitor": {
         "url": "http://www.danielx.net/editor/"
       },
-      "version": "0.2.3-pre.8",
+      "version": "0.2.3-pre.9",
       "entryPoint": "main",
       "remoteDependencies": [
         "https://code.jquery.com/jquery-1.10.1.min.js",
         "https://cdnjs.cloudflare.com/ajax/libs/three.js/r69/three.js"
       ],
       "repository": {
-        "branch": "v0.2.3-pre.8",
+        "branch": "v0.2.3-pre.9",
         "default_branch": "master",
         "full_name": "distri/tactics-core",
         "homepage": null,
