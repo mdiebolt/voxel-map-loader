@@ -22,9 +22,6 @@ setInterval ->
           
           scene.add cube 
     
-    renderer = engine.renderer()
-    renderer.shadowMapEnabled = true
-
     ambientLight = new THREE.AmbientLight 0x101030
     scene.add ambientLight
 
@@ -37,10 +34,15 @@ setInterval ->
 engine = TacticsCore.init
   data: {}
   update: ->
-    ;
     
 camera = engine.camera()
 camera.position.set(5, 10, 20)
+
+renderer = engine.renderer()
+renderer.shadowMapEnabled = true
+
+controls = new THREE.OrbitControls camera, renderer.domElement
+controls.target = new THREE.Vector3(5, 0, 5)
 
 clear = (scene) ->
   removableChildren = scene.children.copy().reverse()
