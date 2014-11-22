@@ -17,7 +17,9 @@ setInterval ->
       row.forEach ({x, y, z}) ->
         [y..0].forEach (y) ->
           cube = engine.Cube(x, y, z)
-        
+          cube.castShadow = true
+          cube.receiveShadow = true
+          
           scene.add cube 
     
     ambientLight = new THREE.AmbientLight 0x101030
