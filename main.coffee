@@ -1,4 +1,4 @@
-TacticsCore = require "tactics-core"
+Engine = require "tactics-core"
 
 clear = (scene) ->
   removableChildren = scene.children.copy().reverse()
@@ -31,21 +31,26 @@ addLights = (scene, opts={}) ->
     light.shadowCameraVisible = true
     scene.add new THREE.DirectionalLightHelper(light, 0.2)  
 
+transformedSpreadsheet = (data) ->
+  data.map.map (cube, z) ->
+    # Google spreadsheets won't let you use numbers as column headers.
+    # We've used letters instead. 
+    # Here we transform the column values into the positions we expect.
+    "abcdefghij".split("").map (letter, x) ->
+      {
+        x: x
+        y: parseInt cube[letter]
+        z: z
+      }
+
 loadFromSpreadsheet = ->
-  TacticsCore.Loader.refresh().then (data) ->
+  Engine.Loader.refresh().then (data) ->
     scene = engine.scene()
     clear scene
-  
-    mapData = data.map.map (cube, z) ->
-      "abcdefghij".split("").map (letter, x) ->
-        {
-          x: x
-          y: parseInt cube[letter]
-          z: z
-        }
-  
-    mapData.forEach (row) ->
+    
+    transformedSpreadsheet(data).forEach (row) ->
       row.forEach ({x, y, z}) ->
+        # Fill in cubes between the highest and the floor
         [y..0].forEach (y) ->
           cube = engine.Cube(x, y, z)
                                         
@@ -60,7 +65,7 @@ loadFromSpreadsheet = ->
 setInterval(loadFromSpreadsheet, 5000)
 loadFromSpreadsheet()
 
-engine = TacticsCore.init
+engine = Engine.init
   data: {}
   update: ->
     
