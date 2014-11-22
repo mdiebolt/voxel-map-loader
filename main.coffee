@@ -56,7 +56,8 @@ setInterval ->
           
           scene.add cube 
     
-    addLights scene
+    addLights scene,
+      debug: false
 , 5000
 
 engine = TacticsCore.init
