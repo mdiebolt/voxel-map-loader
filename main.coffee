@@ -31,8 +31,8 @@ addLights = (scene, opts={}) ->
     light.shadowCameraVisible = true
     scene.add new THREE.DirectionalLightHelper(light, 0.2)  
 
-addCubes = (scene, opts={}) ->  
-  opts.cubes.forEach (row) ->
+addCubes = (scene, {cubes}) ->  
+  cubes.forEach (row) ->
     row.forEach ({x, y, z}) ->
       # Fill in cubes between the highest and the floor
       [y..0].forEach (y) ->
