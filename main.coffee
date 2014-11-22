@@ -6,7 +6,7 @@ setInterval ->
     clear scene
   
     mapData = data.map.map (cube, z) ->
-      ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"].map (letter, x) ->
+      "abcdefghij".split("").map (letter, x) ->
         {
           x: x
           y: parseInt cube[letter]
