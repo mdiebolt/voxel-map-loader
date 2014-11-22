@@ -31,7 +31,7 @@ addLights = (scene, opts={}) ->
     light.shadowCameraVisible = true
     scene.add new THREE.DirectionalLightHelper(light, 0.2)  
 
-setInterval ->
+loadFromSpreadsheet = ->
   TacticsCore.Loader.refresh().then (data) ->
     scene = engine.scene()
     clear scene
@@ -48,17 +48,19 @@ setInterval ->
       row.forEach ({x, y, z}) ->
         [y..0].forEach (y) ->
           cube = engine.Cube(x, y, z)
-          
-          floorCubes = y < 1 
-          
-          cube.receiveShadow = floorCubes
+                    
+          floorCubes = y < 1
+                    
+          cube.receiveShadow = true
           cube.castShadow = !floorCubes
           
           scene.add cube 
     
     addLights scene,
       debug: false
-, 5000
+
+setInterval(loadFromSpreadsheet, 5000)
+loadFromSpreadsheet()
 
 engine = TacticsCore.init
   data: {}
