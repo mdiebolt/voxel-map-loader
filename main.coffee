@@ -3,12 +3,29 @@ TacticsCore = require "tactics-core"
 TacticsCore.Loader.get().then (data) ->
   console.log data
   
-  mapData = data.map.map (cube) ->
-    ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"].map (letter) ->
-      parseInt cube[letter]
+  mapData = data.map.map (cube, x) ->
+    ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"].map (letter, z) ->
+      {
+        x: x
+        z: z
+        height: parseInt cube[letter]  
+      }
       
-  scene.clear()
+        
+engine = TacticsCore.init
+  data: {}
+  update: ->
+    ;
+      
+clear = (scene) ->
+  removableChildren = scene.children.copy().reverse()
   
-  mapData.forEach (row) ->
-    row.forEach (col) ->
-      ; 
+  removableChildren.forEach (child) ->
+    scene.remove(child) unless child.tag in ["camera", "axis"]
+
+scene = engine.scene()
+clear scene 
+
+mapData.forEach (row) ->
+  row.forEach (col) ->
+    cube = engine.Cube
