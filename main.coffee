@@ -7,10 +7,9 @@ TacticsCore.Loader.get().then (data) ->
     ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"].map (letter, z) ->
       {
         x: x
-        z: z
-        height: parseInt cube[letter]  
+        y: parseInt cube[letter]
+        z: z     
       }
-      
         
 engine = TacticsCore.init
   data: {}
