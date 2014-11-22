@@ -31,6 +31,18 @@ addLights = (scene, opts={}) ->
     light.shadowCameraVisible = true
     scene.add new THREE.DirectionalLightHelper(light, 0.2)  
 
+addCubes = (scene, opts={}) ->  
+  opts.cubes.forEach (row) ->
+    row.forEach ({x, y, z}) ->
+      # Fill in cubes between the highest and the floor
+      [y..0].forEach (y) ->
+        cube = engine.Cube(x, y, z)
+                                      
+        cube.receiveShadow = true
+        cube.castShadow = y >= 1
+        
+        scene.add cube
+
 transformedSpreadsheet = (data) ->
   data.map.map (cube, z) ->
     # Google spreadsheets won't let you use numbers as column headers.
@@ -44,20 +56,12 @@ transformedSpreadsheet = (data) ->
       }
 
 loadFromSpreadsheet = ->
-  Engine.Loader.refresh().then (data) ->
+  Engine.Loader.refresh().then (data) -> 
     scene = engine.scene()
-    clear scene
+    clear scene      
     
-    transformedSpreadsheet(data).forEach (row) ->
-      row.forEach ({x, y, z}) ->
-        # Fill in cubes between the highest and the floor
-        [y..0].forEach (y) ->
-          cube = engine.Cube(x, y, z)
-                                        
-          cube.receiveShadow = true
-          cube.castShadow = y >= 1
-          
-          scene.add cube 
+    addCubes scene,
+      cubes: transformedSpreadsheet(data) 
     
     addLights scene,
       debug: false
