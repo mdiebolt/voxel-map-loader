@@ -66,7 +66,7 @@ loadFromSpreadsheet = ->
     addLights scene,
       debug: false
 
-setInterval(loadFromSpreadsheet, 3000)
+setInterval(loadFromSpreadsheet, 4000)
 loadFromSpreadsheet()
 
 engine = Engine.init
